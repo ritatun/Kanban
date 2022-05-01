@@ -1,0 +1,18 @@
+.main {
+    background-color: #0079BF;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+@media screen and (max-width: 425px) {
+    /* .main {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+    } */
+
+    
+}

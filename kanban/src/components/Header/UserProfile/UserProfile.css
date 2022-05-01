@@ -1,0 +1,60 @@
+.user-profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-profile__avatar {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 6px;
+    font-size: 12px;
+    color: black;
+}
+
+.user-profile__button {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+
+
+
+.popup {
+    background-color: #FFFFFF;
+    color: black;
+    width: 134px;
+    height: 60px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    align-content: stretch;
+    padding-left: 7px;
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    font-size: 14px;
+}
+
+.profile:hover, .log-out:hover {
+    text-decoration: underline;
+}
+
+.popup::before {
+    content: '';
+    width: 11px;
+    height: 11px;
+    background-color: white;
+    position: absolute;
+    top: -5px;
+    right: 30px;
+    transform: rotate(45deg);
+}

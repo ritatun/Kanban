@@ -1,0 +1,54 @@
+.progress {
+    display: flex;
+    flex-direction: column;
+    background-color: #EBECF0;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 20px;
+    min-height: 170px;
+    flex-grow: 1;
+    max-width: 15%;
+}
+
+.progress__title {
+    font-size: 18px;
+}
+
+.progress__cards {
+    padding: 0;
+}
+
+.progress__cards-item {
+    list-style: none;
+    margin: 0;
+    background-color: #fff;
+    padding: 7px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.progress__button {
+    text-align: start;
+    border: none;
+    color: #5E6C84;
+    font-size: 18px;
+
+}
+
+.progress__select {
+    display: none;
+
+    list-style: none;
+    margin: 0;
+    background-color: #fff;
+
+    padding: 7px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.progress__select.activeSelect {
+    display: block;
+}

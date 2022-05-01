@@ -1,0 +1,77 @@
+.backlog {
+    display: flex;
+    flex-direction: column;
+    background-color: #EBECF0;
+    padding: 12px;
+    border-radius: 10px;
+    margin: 20px;
+    min-height: 170px;
+    flex-grow: 1;
+    max-width: 15%;
+    overflow-y: auto;
+    
+}
+
+.backlog__title {
+    font-size: 18px;
+}
+
+.backlog__cards {
+    padding: 0;
+
+}
+
+.backlog__cards-item {
+    list-style: none;
+    margin: 0;
+    background-color: #fff;
+    padding: 7px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+.backlog__input {
+    display: none;
+    margin-bottom: 17px;
+    background-color: #fff;
+    height: 35px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+}
+
+.backlog__input.isActive {
+    display: block;
+}
+
+.backlog__input:focus {
+    border: 0;
+}
+
+.backlog__button {
+    display: block;
+    text-align: start;
+    border: none;
+    color: #5E6C84;
+    font-size: 18px;
+}
+
+.backlog__button.isHidden {
+    display: none;
+}
+
+.backlog__submit {
+    display: none;
+    background-color: #0079BF;
+    text-align: center;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    width: 110px;
+}
+
+.backlog__submit.isActive {
+    display: block;
+}

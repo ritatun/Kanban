@@ -1,0 +1,29 @@
+.footer {
+    background-color: #0067A3;
+    height: 55px;
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.footer__counter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.footer__counter-active {
+    margin-right: 36px;
+}
+
+
+@media screen and (max-width: 425px) {
+    .footer {
+        display: none;
+    }
+}
