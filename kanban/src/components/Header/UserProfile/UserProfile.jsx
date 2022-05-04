@@ -42,7 +42,7 @@ class UserProfile extends React.Component {
           <img
             className="user-profile__avatar-image"
             src={Avatar}
-            alt="user photo"
+            alt="user avatar"
           />
         </div>
         {this.state.isOpen ? OpenSttngs : CloseSttngs}

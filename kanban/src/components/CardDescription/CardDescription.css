@@ -29,6 +29,7 @@
 .card-description__close {
     font-weight: 200;
     font-size: 36px;
+    text-decoration: none;
 }
 
 .card-description__title {
@@ -48,10 +49,4 @@
     text-overflow: ellipsis;
     align-self: start;
     border: 0;
-}
-
-
-@media screen and (max-width: 425px) {
-    
-    
 }

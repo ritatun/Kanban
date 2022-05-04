@@ -2,9 +2,9 @@ import React from "react";
 import "./Footer.css";
 
 class Footer extends React.Component {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
-  }
+  } */
 
   countTasks = (status) => {
     let numberOfTasks = 0;
@@ -17,9 +17,9 @@ class Footer extends React.Component {
   };
 
   render() {
-    const { cards } = this.props;
-    let activaTasks = this.countTasks("backlog");
-    let finishedTasks = this.countTasks("finished");
+    /* const { cards } = this.props; */
+    let activaTasks = this.countTasks("Backlog");
+    let finishedTasks = this.countTasks("Finished");
 
     return (
       <footer className="footer">

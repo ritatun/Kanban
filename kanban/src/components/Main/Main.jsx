@@ -1,64 +1,49 @@
 import React from "react";
 import "./Main.css";
-/* import Backlog from "./Backlog/Backlog";
-import Finished from "./Finished/Finished";
-import InProgress from "./InProgress/InProgress";
-import Ready from "./Ready/Ready"; */
 import CardComponent from "./CardComponent/CardComponent";
 
 class Main extends React.Component {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
-  }
+  } */
 
   render() {
-    const {
-      onChange,
-      onClick,
-      cards,
-      refProp,
-      /* ready,
-      selectReady,
-      selectedTitle, */
-    } = this.props;
+    const { onChange, onClick, cards, refProp, submitRef, value } = this.props;
 
     return (
-      <div className="main">
-        {/* <Backlog
-          onChange={onChange}
-          onClick={onClick}
-          cards={cards}
-          refProp={refProp}
-        />
-        <Ready cards={cards} />
-        <InProgress cards={cards} />
-        <Finished cards={cards} /> */}
+      <main className="main">
         <CardComponent
           cards={cards}
           title="Backlog"
+          name="Backlog"
           onChange={onChange}
           onClick={onClick}
           refProp={refProp}
+          submitRef={submitRef}
+          value={value}
         />
         <CardComponent
           cards={cards}
           title="Ready"
+          name="Ready"
           selectedTitle="Backlog"
           handleSelect={this.props.handleSelect}
         />
         <CardComponent
           cards={cards}
-          title="In Progress"
+          title="Progress"
+          name="In Progress"
           selectedTitle="Ready"
           handleSelect={this.props.handleSelect}
         />
         <CardComponent
           cards={cards}
           title="Finished"
-          selectedTitle="In Progress"
+          name="Finished"
+          selectedTitle="Progress"
           handleSelect={this.props.handleSelect}
         />
-      </div>
+      </main>
     );
   }
 }

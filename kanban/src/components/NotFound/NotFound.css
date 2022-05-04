@@ -1,0 +1,11 @@
+.not-found {
+    background-color: #0079BF;
+    background-image: url('./404.svg');
+    background-color: #0079BF;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-grow: 1;
+    background-position: center;
+    background-repeat: no-repeat;
+}

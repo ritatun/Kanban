@@ -1,38 +1,27 @@
 import React from "react";
 import "./CardComponent.css";
+import { Link } from "react-router-dom";
 
 class CardComponent extends React.Component {
   constructor(props) {
     super(props);
     this.selectRef = React.createRef();
     this.inputRef = React.createRef();
-    this.submitRef = React.createRef();
+    this.state = {
+      isDisabled: false,
+    };
   }
 
   handleBacklogClick = (e) => {
-    const { refProp } = this.props;
+    const { refProp, submitRef } = this.props;
 
     refProp.current.classList.toggle("isActive");
     e.target.classList.toggle("isHidden");
-    this.submitRef.current.classList.toggle("isActive");
+    submitRef.current.classList.toggle("isActive");
   };
 
   handleClick = () => {
     this.selectRef.current.classList.toggle("activeSelect");
-  };
-
-  handleSelect = (e) => {
-    const { cards, title } = this.props;
-    const selectedId = e.target.selectedOptions[0].id;
-
-    let newCards = [...cards];
-    let bufCardsArray = newCards.map((cardsItem) => {
-      if (cardsItem.id == selectedId) {
-        cardsItem.status = title;
-        console.log(typeof selectedId);
-      }
-    });
-    this.setState({ cards: bufCardsArray });
   };
 
   checkPointer = () => {
@@ -51,8 +40,38 @@ class CardComponent extends React.Component {
     }
   };
 
+  checkPrevCards = ([cards], selectedTitle) => {
+    let flag = 0;
+    cards.map((cardsItem) => {
+      if (cardsItem.status === selectedTitle) {
+        flag++;
+      }
+    });
+    return flag;
+  };
+
+  componentDidMount() {
+    if (this.props.title !== "Backlog") {
+      const { cards, selectedTitle } = this.props;
+
+      const isDisabledBtn = this.checkPrevCards([cards], selectedTitle);
+      this.setState({ isDisabled: !isDisabledBtn });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.cards !== this.props.cards) {
+      if (this.props.title !== "Backlog") {
+        const { cards, selectedTitle } = this.props;
+
+        const isDisabledBtn = this.checkPrevCards([cards], selectedTitle);
+        this.setState({ isDisabled: !isDisabledBtn });
+      }
+    }
+  }
+
   render() {
-    const { cards, title, selectedTitle } = this.props;
+    const { cards, name, title, selectedTitle, submitRef } = this.props;
 
     let backlogButton, notBacklogButton;
     if (title === "Backlog") {
@@ -72,7 +91,7 @@ class CardComponent extends React.Component {
             onClick={(e) => this.props.onClick(e)}
             className="backlog__submit"
             type="submit"
-            ref={this.submitRef}
+            ref={submitRef}
           >
             Submit
           </button>
@@ -85,6 +104,7 @@ class CardComponent extends React.Component {
         <>
           <button
             onClick={this.handleClick}
+            disabled={this.state.isDisabled}
             className={`cardComponent__button ${
               this.checkPointer ? "pointer" : ""
             }`}
@@ -93,7 +113,7 @@ class CardComponent extends React.Component {
           </button>
 
           <select
-            className="cardComponent__select"
+            className={`cardComponent__select ${title}`}
             ref={this.selectRef}
             onChange={(e) => this.props.handleSelect(e, title)}
           >
@@ -118,19 +138,22 @@ class CardComponent extends React.Component {
 
     return (
       <div className="cardComponent">
-        <div className="cardComponent__title">{title}</div>
-        <ul className="cardComponent__cards">
+        <div className="cardComponent__title">{name}</div>
+        <div className="cardComponent__cards">
           {cards.map((cardsItem) => {
-            /*  console.log(cardsItem.status); */
             if (cardsItem.status === title) {
               return (
-                <li key={cardsItem.id} className="cardComponent__cards-item">
+                <Link
+                  to={`/tasks/${cardsItem.id}`}
+                  key={cardsItem.id}
+                  className="cardComponent__cards-link"
+                >
                   {cardsItem.name}
-                </li>
+                </Link>
               );
             }
           })}
-        </ul>
+        </div>
 
         {/* для компонента BACKLOG */}
         {backlogButton}

@@ -6,39 +6,18 @@ import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
 import CardDescription from "./components/CardDescription/CardDescription";
-import { Routes, Route, Link } from "react-router-dom";
+import NotFound from "./components/NotFound/NotFound";
+import { Routes, Route } from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.inputRef = React.createRef();
+    this.submitRef = React.createRef();
+
     this.state = {
       value: "",
-      cards: [
-        /* {
-          description: "",
-          id: 123,
-          name: "Backlog 1 Backl ogBa cklogBacklog BacklogBacklog",
-          status: "Backlog",
-        },
-        { description: "", id: 42452, name: "Backlog 2", status: "Backlog" },
-        { description: "", id: 522, name: "Ready 1", status: "Ready" },
-        { description: "", id: 2, name: "Ready 2", status: "Ready" },
-        {
-          description: "",
-          id: 5252,
-          name: "Progress 1",
-          status: "In Progress",
-        },
-        {
-          description: "",
-          id: 425222,
-          name: "Progress 2",
-          status: "In Progress",
-        },
-        { description: "", id: 522222, name: "Finished 1", status: "Finished" },
-        { description: "", id: 542, name: "Finished 2", status: "Finished" }, */
-      ],
+      cards: [],
     };
   }
 
@@ -54,6 +33,10 @@ class App extends React.Component {
     const { cards } = this.state;
     const setLocalCards = JSON.stringify(cards);
     localStorage.setItem("localCards", setLocalCards);
+
+    /* if (!this.state.value) {
+      this.submitRef.current.style.cursor = "default";
+    } */
   }
 
   handleInputChange = (e) => {
@@ -62,14 +45,13 @@ class App extends React.Component {
 
   handleSubmitClick = (e) => {
     e.preventDefault();
-    console.log(e);
     const { value, cards } = this.state;
 
     if (value) {
       let newCard = {
         id: getRandomId(),
         name: value,
-        description: "",
+        description: "This task has no description",
         status: "Backlog",
       };
       let newCards = [...cards, newCard];
@@ -82,47 +64,67 @@ class App extends React.Component {
     const { cards } = this.state;
 
     const selectedId = Number(e.target.selectedOptions[0].id);
-    console.log(typeof selectedId);
 
     let newCards = [...cards];
-    console.log(newCards);
     let bufCardsArray = newCards.map((cardsItem) => {
       if (cardsItem.id === selectedId) {
         cardsItem.status = cardTitle;
       }
       return cardsItem;
     });
-    console.log(bufCardsArray);
 
     this.setState({ cards: bufCardsArray });
+
+    const selectors = document.querySelectorAll(".cardComponent__select");
+    selectors.forEach((selectorsItem) => {
+      if (selectorsItem.className.includes(cardTitle))
+        selectorsItem.classList.remove("activeSelect");
+    });
   };
 
-  handleDescChange = (e) => {
-    console.log(e.target.value);
+  handleDescChange = (e, id) => {
+    let newCards = this.state.cards;
+    newCards.forEach((newCardsItem) => {
+      if (newCardsItem.id === id) {
+        newCardsItem.description = e.target.value;
+      }
+      return newCardsItem;
+    });
+    this.setState({ cards: newCards });
   };
 
   render() {
     return (
       <div className="app">
         <Header />
-
-        <Main
-          className="main-component"
-          refProp={this.inputRef}
-          onChange={this.handleInputChange}
-          onClick={this.handleSubmitClick}
-          cards={this.state.cards}
-          handleSelect={this.handleSelect}
-        />
-        {/* <CardDescription
-          cards={this.state.cards}
-          handleDescChange={this.handleDescChange}
-        /> */}
+        <Routes>
+          <Route
+            path=""
+            element={
+              <Main
+                className="main-component"
+                refProp={this.inputRef}
+                submitRef={this.submitRef}
+                onChange={this.handleInputChange}
+                onClick={this.handleSubmitClick}
+                cards={this.state.cards}
+                value={this.state.value}
+                handleSelect={this.handleSelect}
+              />
+            }
+          ></Route>
+          <Route
+            path="/tasks/:cardID"
+            element={
+              <CardDescription
+                cards={this.state.cards}
+                handleDescChange={this.handleDescChange}
+              />
+            }
+          ></Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         <Footer cards={this.state.cards} />
-        {/* <Routes>
-          <Route path="" element={<Main />} />
-          <Route path=":cardId" element={<CardDescription />} />
-        </Routes> */}
       </div>
     );
   }

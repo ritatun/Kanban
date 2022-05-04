@@ -8,10 +8,13 @@
     font-size: 28px;
 }
 
-
+.header__link {
+    text-decoration: none;
+    color: #fff;
+}
 
 @media screen and (max-width: 425px) {
-    .header__title {
+    .header__link {
         display: none;
     }
 
